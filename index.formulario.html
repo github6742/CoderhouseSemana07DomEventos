@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Carga de Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        } 
+        .form-container {
+            background: #5a0b0b;
+            padding: 20px;
+            border-radius: 8px;
+            /* box-shadow: 0 4px 6px rgba(36, 9, 192, 0.1); */
+        }
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;         /* Activa Flexbox para alinear de forma horizontal */
+    justify-content: space-between;
+    /* align-items: center;    */
+    /* Centra verticalmente el label y el input */
+    gap: 10px;             /* Agrega una separación de 10px entre el label y el input */
+}
+
+.form-group label {
+   /* display: inline-block;*/ /* Cambiado de 'block' a 'inline-block' */
+    font-weight: bold;
+    min-width: 250px;      /* Ancho fijo opcional para que todos los inputs arranquen alineados en la misma columna */
+    text-align: left;     /* Alinea el texto a la derecha para un acabado más limpio */
+}
+
+.form-group input, .form-group select {
+    flex: 1;               /* Hace que el input ocupe todo el espacio restante del renglón */
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+/* 
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        } */
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Cargar Nuevo Producto</h2>
+        <!-- Agregamos el evento onsubmit para llamar a la función de JS -->
+        <form id="productForm" onsubmit="guardarEnArray(event)">
+            
+            <div class="form-group">
+                <label for="id">ID Producto:</label>
+                <input type="number" id="id" name="id" value="2" required>
+            </div>
+
+            <div class="form-group">
+                <label for="codigo">Código:</label>
+                <input type="text" id="codigo" name="codigo" placeholder="Ej: TVS0033PHI02" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Nombre del Producto:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej: TELEVISOR SMART TV PHILLIPS 33 PULGADAS" required>
+            </div>
+
+            <div class="form-group">
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" name="marca" placeholder="Ej: PHILLIPS" required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Seleccione una categoría</option>
+                    <option value="TELEVISOR">TELEVISOR</option>
+                    <option value="AUDIO">AUDIO</option>
+                    <option value="COMPUTACION">COMPUTACIÓN</option>
+                    <option value="HOGAR">HOGAR</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="precio">Precio ($):</label>
+                <input type="number" id="precio" name="precio" min="0" step="0.01" placeholder="Ej: 332000" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Guardar en Lista</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // 1. Definimos el array global vacío donde se guardarán los productos
+    const listaProductos = [];
+
+    // 2. Función que se ejecuta al enviar el formulario
+    function guardarEnArray(event) {
+        // Evita que la página se recargue y se pierdan los datos del array
+        event.preventDefault(); 
+
+        // 3. Capturamos los valores de los inputs del formulario
+        const idValue = parseInt(document.getElementById('id').value);
+        const codigoValue = document.getElementById('codigo').value;
+        const nombreValue = document.getElementById('nombre').value;
+        const marcaValue = document.getElementById('marca').value;
+        const categoriaValue = document.getElementById('categoria').value;
+        const precioValue = parseFloat(document.getElementById('precio').value);
+
+        // 4. Creamos el objeto con la estructura requerida
+        const nuevoProducto = {
+            id: idValue,
+            codigo: codigoValue,
+            nombre: nombreValue,
+            marca: marcaValue,
+            categoria: categoriaValue,
+            precio: precioValue
+        };
+
+        // 5. Agregamos el objeto creado al array global usando .push()
+        listaProductos.push(nuevoProducto);
+
+        // Mensaje de éxito en la consola para verificar el almacenamiento
+        console.log("¡Producto guardado con éxito!");
+        console.log("Lista completa de productos actual:", listaProductos);
+
+        // 6. Limpiamos el formulario para permitir una nueva carga
+        document.getElementById('productForm').reset();
+        
+        // Opcional: incrementamos automáticamente el ID para el próximo producto
+        document.getElementById('id').value = idValue + 1;
+    }
+</script>
+
+</body>
+</html>
