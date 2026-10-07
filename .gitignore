@@ -1,14 +1,20 @@
 styles.panaderia.css
+styles.listado.css
 main.arrays.js
 main.clase.dom.1.js
 main.clase.dom.2.js
 main.funciones.orden.superior.js
+#main.js
+main.listado.js
 main.objetos.js
 main.semana07.js
 main.temp.js
 main.temp2.js
 main.temp3.js
 main.temp4.js
-# index.formulario.html
-# index.panaderia.html
-# productos.html
+#favicon.ico
+index.formulario.html
+#index.html
+index.listado.html
+index.panaderia.html
+productos.html

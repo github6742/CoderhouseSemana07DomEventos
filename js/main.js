@@ -40,7 +40,9 @@ const listaMenu = [
         clase: "comprar",
         id: "idComprar"
     }
-];const listaPrecioArticulos = [
+];
+
+const listaPrecioArticulos = [
       {
         id: 1,
         codigo: "TVS0033PCO01",
@@ -220,7 +222,7 @@ function armarFormularioCrearArticulo(){
     tagMain.innerHTML = "";
     //
     const tagDivContenedor = document.createElement("div");
-    tagDivContenedor.className = "contenedor";
+    tagDivContenedor.className = "contenedorCrearArticulos";
     //
     const tagDivContenedorFormulario = document.createElement("div");
     tagDivContenedorFormulario.className = "contenedorFormulario";
@@ -347,7 +349,61 @@ const elementoCrearArticulos = document.getElementById("idCrearArticulos");
 elementoCrearArticulos.addEventListener('click', () => {armarFormularioCrearArticulo()});
 
 function armarListarArticulos(){
-  alert("armarListarArticulos")
+    //alert("armarListarArticulos");
+    const tagMain = document.querySelector("main");
+    tagMain.innerHTML = "";
+    //
+    const tagDivContenedor = document.createElement("div");
+    tagDivContenedor.className = "contenedorListarArticulos";
+    //
+    const tagDivContenedorListado = document.createElement("div");
+    tagDivContenedorListado.className = "contenedorListado";
+    //
+    const tagH2ContenedorListado = document.createElement("h2");
+    tagH2ContenedorListado.className = "contenedorListadoTitulo";
+    tagH2ContenedorListado.innerText = "Lista de Articulos";
+    tagDivContenedorListado.appendChild(tagH2ContenedorListado);
+    //
+    const tagTablaListado = document.createElement("table");
+    tagTablaListado.className = "tablaListado";
+    //    
+    const tagTablaListadoThead = document.createElement("thead");
+    tagTablaListadoThead.className = "tablaListadoThead";
+    tagTablaListadoThead.innerHTML = `
+        <tr>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Nombre del Artículo</th>
+            <th>Marca</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+        </tr>
+    `;
+    tagTablaListado.appendChild(tagTablaListadoThead);
+    //    
+    const tagTablaListadoTbody = document.createElement("tbody");
+    tagTablaListadoTbody.className = "tablaListadoTbody";
+    //
+    listaPrecioArticulos.forEach(articulo => {
+        const registro = document.createElement("tr");
+        
+        registro.innerHTML = `
+            <td>${articulo.id}</td>
+            <td>${articulo.codigo.toUpperCase()}</td>
+            <td>${articulo.nombre.toUpperCase()}</td>
+            <td>${articulo.marca.toUpperCase()}</td>
+            <td>${articulo.categoria.toUpperCase()}</td>
+            <td>$${articulo.precio}</td>
+        `;
+        
+        tagTablaListadoTbody.appendChild(registro);
+    });
+
+    tagTablaListado.appendChild(tagTablaListadoTbody);
+    tagDivContenedorListado.appendChild(tagTablaListado);
+    tagDivContenedor.appendChild(tagDivContenedorListado);
+    tagMain.appendChild(tagDivContenedor);
+
 };
 
 const elementoListarArticulos = document.getElementById("idListarArticulos");

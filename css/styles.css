@@ -14,25 +14,19 @@ header {
     background-color: aquamarine;
 }
 
-/* main {
-  display:flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-.contenedor {
+.contenedorCrearArticulos {
     max-width: 900px;
     margin: 0 auto;
 }
 
-.contenedorFormulario {
+.contenedorFormulario, .contenedorListado {
     background: #ddeeec;
     margin-top: 50px;
     padding: 20px;
     border-radius: 8px;
 }
 
-.contenedorFormularioTitulo{
+.contenedorFormularioTitulo, .contenedorListadoTitulo{
     color:#28a745;
     padding: 10px;
     align-items: center;
@@ -62,7 +56,6 @@ header {
     border-radius: 4px;
 }
 
-
 .botonGuardarFormulario {
     background-color: #28a745;
     font-weight: bold; 
@@ -74,37 +67,37 @@ header {
     width: 100%;
     font-size: 16px;
 }
-/* 
-nav {
-  width: 70%;
-  align-items: center;
-  background-color: antiquewhite;
+
+.contenedorListarArticulos {
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-ul {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  list-style: none; 
+.tablaListado{    
+    width: 100%;
+    margin-top: 10px;
+    /* background-color: #fff; */
+    border-radius: 8px;
 }
 
-h1 {
-  text-align: center;
-  padding: 10px;
-  color: rgb(63,2,2);
-  text-transform: uppercase;
+.tablaListado th, .tablaListado td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-li {
-  color: rgb(63,2,2);
-  text-transform: uppercase;
-
+.tablaListado th {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
 }
 
-body {
-    background-color: burlywood;
+.tablaListado tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
 }
 
-footer {
-    background-color:darkseagreen;
-} */
+.tablaListado th:last-child, .tablaListado td:last-child {
+    text-align: right;
+}
