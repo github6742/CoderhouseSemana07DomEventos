@@ -211,13 +211,15 @@ tagHeaderNav.appendChild(tagHeaderUl);
 tagHeader.appendChild(tagHeaderH1);
 tagHeader.appendChild(tagHeaderNav);
 
-function guardarDatos(event){
-    event.preventDefault(); 
-    alert("giardar datos");
+
+function guardarDatos(e){
+  e.preventDefault();
+  console.log("guardando datos");
 }
 
-function armarFormularioCrearArticulo(){
-    //console.log("armar formulario");
+function armarFormularioCrearArticulo(e){
+    e.preventDefault();
+    console.log("armar formulario");
     const tagMain = document.querySelector("main");
     tagMain.innerHTML = "";
     //
@@ -306,7 +308,56 @@ function armarFormularioCrearArticulo(){
     tagFormularioMarcaDiv.appendChild(tagFormularioMarcaInput);
     // carga el div en el formulario
     tagFormulario.appendChild(tagFormularioMarcaDiv);
-        
+    /////////////////////////////////////////////////////////////
+    /// crea el campo de categoria
+    /////////////////////////////////////////////////////////////
+    // crea tag div
+    const tagFormularioCategoriaDiv = document.createElement("div");
+    tagFormularioCategoriaDiv.className = "renglonFormularioArticulo";
+    // crea tag label
+    const tagFormularioCategoriaLabel = document.createElement("label");
+    tagFormularioCategoriaLabel.innerText = "Categoria: ";
+    // crea tag select
+    const tagFormularioCategoriaSelect = document.createElement("select");
+    tagFormularioCategoriaSelect.id = "idCategoria";
+    tagFormularioCategoriaSelect.name = "categoria";
+    tagFormularioCategoriaSelect.required = true;
+    /*            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Seleccione una categoría</option>
+                    <option value="TELEVISOR">TELEVISOR</option>
+                    <option value="AUDIO">AUDIO</option>
+                    <option value="COMPUTACION">COMPUTACIÓN</option>
+                    <option value="HOGAR">HOGAR</option>
+                </select>
+            </div>*/
+    //
+    const tagSelectOptionValue1 = document.createElement("option");
+    tagSelectOptionValue1.innerText = "Seleccione una categoria";
+    tagSelectOptionValue1.value = "";
+    tagFormularioCategoriaSelect.appendChild(tagSelectOptionValue1);
+    //
+    const tagSelectOptionValue2 = document.createElement("option");
+    tagSelectOptionValue2.innerText = "TELEVISOR";
+    tagSelectOptionValue2.value = "TELEVISOR";
+    tagFormularioCategoriaSelect.appendChild(tagSelectOptionValue2);
+    //
+    const tagSelectOptionValue3 = document.createElement("option");
+    tagSelectOptionValue3.innerText = "COCINA";
+    tagSelectOptionValue3.value = "COCINA";
+    tagFormularioCategoriaSelect.appendChild(tagSelectOptionValue3);
+    //
+    const tagSelectOptionValue4 = document.createElement("option");
+    tagSelectOptionValue4.innerText = "HELADERA";
+    tagSelectOptionValue4.value = "HELADERA";
+    tagFormularioCategoriaSelect.appendChild(tagSelectOptionValue4);
+    // carga el label en el div
+    tagFormularioCategoriaDiv.appendChild(tagFormularioCategoriaLabel);
+    // carga el select en el div
+    tagFormularioCategoriaDiv.appendChild(tagFormularioCategoriaSelect);
+    // carga el div en el formulario
+    tagFormulario.appendChild(tagFormularioCategoriaDiv);    
     /////////////////////////////////////////////////////////////
     /// crea el campo de ingreso precio
     /////////////////////////////////////////////////////////////
@@ -330,8 +381,9 @@ function armarFormularioCrearArticulo(){
     tagFormularioPrecioDiv.appendChild(tagFormularioPrecioInput);
     // carga el div en el formulario
     tagFormulario.appendChild(tagFormularioPrecioDiv);
-
+    ///////////////////////////////////////////////////////
     // crea el boton de submit
+    //////////////////////////////////////////////////////
     const tagFormularioBoton = document.createElement("button");
     tagFormularioBoton.type = "submit";
     tagFormularioBoton.className = "botonGuardarFormulario";
@@ -346,9 +398,10 @@ function armarFormularioCrearArticulo(){
 };
 
 const elementoCrearArticulos = document.getElementById("idCrearArticulos");
-elementoCrearArticulos.addEventListener('click', () => {armarFormularioCrearArticulo()});
+elementoCrearArticulos.addEventListener("click", armarFormularioCrearArticulo);
 
-function armarListarArticulos(){
+function armarListarArticulos(e){
+    e.preventDefault();
     //alert("armarListarArticulos");
     const tagMain = document.querySelector("main");
     tagMain.innerHTML = "";
@@ -407,25 +460,56 @@ function armarListarArticulos(){
 };
 
 const elementoListarArticulos = document.getElementById("idListarArticulos");
-elementoListarArticulos.addEventListener('click', () => {armarListarArticulos()});
+elementoListarArticulos.addEventListener("click", armarListarArticulos);
 
-function armarBuscarArticulos(){
-  alert("armarBuscarArticulos")
+function buscarArticulos(e){
+  console.log("buscarArticulos");
+}
+
+function armarBuscarArticulos(e){
+    e.preventDefault();
+    console.log("armar BuscarArticulos");
+    const tagMain = document.querySelector("main");
+    tagMain.innerHTML = "";
+    //
+    const tagDivContenedor = document.createElement("div");
+    tagDivContenedor.className = "contenedorBuscarArticulos";
+    //
+    const tagDivContenedorBuscarArticulos = document.createElement("div");
+    tagDivContenedorBuscarArticulos.className = "contenedorBuscarArticulos";
+    //
+    const tagH2ContenedorBuscarArticulos = document.createElement("h2");
+    tagH2ContenedorBuscarArticulos.className = "contenedorBuscarArticulosTitulo";
+    tagH2ContenedorBuscarArticulos.innerText = "Buscar Articulos";
+    tagDivContenedorBuscarArticulos.appendChild(tagH2ContenedorBuscarArticulos);
+    
+    // crea tag form
+    const tagFormulario = document.createElement("form");
+    tagFormulario.id = "idBuscarArticulo";
+    tagFormulario.addEventListener("submit", buscarArticulos);
+    //tagFormulario.action = "guardarDatos()";
+    tagFormulario.method = "POST";
+
+    tagDivContenedorBuscarArticulos.appendChild(tagTablaListado);
+    tagDivContenedor.appendChild(tagDivContenedorBuscarArticulos);
+    tagMain.appendChild(tagDivContenedor);
 };
 
 const elementoBuscarArticulos = document.getElementById("idBuscarArticulos");
-elementoBuscarArticulos.addEventListener('click', () => {armarBuscarArticulos()});
+elementoBuscarArticulos.addEventListener("click",armarBuscarArticulos);
 
-function armarVerificarExistenciaArticulos(){
+function armarVerificarExistenciaArticulos(e){
+  e.preventDefault();
   alert("armarVerificarExistenciaArticulos")
 };
 
 const elementoVerificarExistenciaArticulos = document.getElementById("idVerificarExistenciaArticulos");
-elementoVerificarExistenciaArticulos.addEventListener('click', () => {armarVerificarExistenciaArticulos()});
+elementoVerificarExistenciaArticulos.addEventListener("click", armarVerificarExistenciaArticulos);
 
-function armarComprarArticulos(){
+function armarComprarArticulos(e){
+  e.preventDefault();
   alert("armarComprarArticulos")
 };
 
 const elementoComprarArticulos = document.getElementById("idComprar");
-elementoComprarArticulos.addEventListener('click', () => {armarComprarArticulos()});
+elementoComprarArticulos.addEventListener("click", armarComprarArticulos);

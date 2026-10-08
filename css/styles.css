@@ -48,7 +48,7 @@ header {
     text-align: left;
 }
 
-.renglonFormularioArticulo input{
+.renglonFormularioArticulo input, .renglonFormularioArticulo select{
     flex: 1;                
     padding: 8px;
     box-sizing: border-box;
