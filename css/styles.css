@@ -6,35 +6,83 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    /* padding: 20px; */
+    /* background-color: #f4f4f9; */
+    background-color: whitesmoke;
+    padding: 10px; 
 }
 
-header {
-    background-color: aquamarine;
+header, main, footer {
+    padding: 10px; 
+    /* background-color: aquamarine; */
+}
+ .contenedorHeader {
+    padding: 10px; 
+    /* background-color: red; */
+} 
+
+.contenedorHeaderElementos{
+    padding: 10px; 
+    /* background-color: green; */
+}
+.headerH1Menu{
+    padding: 10px; 
+    background-color: rgb(164, 240, 167); 
+    color: green;
+    text-align: center;
+    text-justify: center;
+    border-radius: 8px;
+
+}
+.headerNavMenu{
+    margin: 10px 0px 0px 0px;
+    padding: 10px; 
+    background-color: rgb(181, 235, 182); 
+    color: green;
+    font-size: 20px;
+    text-align: center;
+    text-justify: center;
+    border-radius: 8px;
 }
 
-.contenedorCrearArticulos {
+.headerUlMenu{
+    padding: 10px; 
+    /* background-color: rgb(222, 14, 160); */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+} 
+
+.opcionMenuTextoA {
+    color: green;
+} 
+
+.contenedorCrearArticulo, .contenedorBuscarArticulos, .contenedorVerificarExistenciaArticulo {
     max-width: 900px;
     margin: 0 auto;
 }
 
 .contenedorFormulario, .contenedorListado {
     background: #ddeeec;
-    margin-top: 50px;
-    padding: 20px;
+    margin-top: 10px;
+    padding: 10px;
     border-radius: 8px;
 }
 
-.contenedorFormularioTitulo, .contenedorListadoTitulo{
-    color:#28a745;
+.contenedorFormularioTitulo, .contenedorListadoTitulo, .contenedorBuscarArticulosTitulo, .contenedorVerificarExistenciaArticuloTitulo{
+    /* color:#28a745; */
+    color: green;
     padding: 10px;
     align-items: center;
     text-align: center;
 }
 
 .renglonFormularioArticulo{
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -42,7 +90,8 @@ header {
 
 .renglonFormularioArticulo label{
     display: inline-block; 
-    color:rgb(12, 144, 91);
+    /* color:rgb(12, 144, 91); */
+    color: green;
     /* font-weight: bold; */
     min-width: 150px;      
     text-align: left;
@@ -52,12 +101,13 @@ header {
     flex: 1;                
     padding: 8px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 4px;
 }
 
-.botonGuardarFormulario {
-    background-color: #28a745;
+.botonGuardarFormulario, .botonBuscarFormulario, .botonVerificarExistenciaArticuloFormulario {
+    /* background-color: #28a745; */
+    background-color: green;
     font-weight: bold; 
     color: white;
     padding: 10px 15px;
@@ -83,11 +133,12 @@ header {
 .tablaListado th, .tablaListado td {
     padding: 12px 15px;
     text-align: left;
-    border-bottom: 1px solid #e0e0e0;
+    /* border-bottom: 1px solid #e0e0e0; */
 }
 
 .tablaListado th {
-    background-color: #28a745;
+    /* background-color: #28a745; */
+    background-color: green;
     color: white;
     font-weight: bold;
     text-transform: uppercase;
@@ -95,7 +146,8 @@ header {
 }
 
 .tablaListado tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
+    background-color: rgb(185, 206, 191);
 }
 
 .tablaListado th:last-child, .tablaListado td:last-child {
