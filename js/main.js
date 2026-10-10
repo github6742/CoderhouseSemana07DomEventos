@@ -190,6 +190,9 @@ class Articulo {
       };
 };
 
+const esNulo = (valor) => (valor == "");
+const esString = (valor) => (isNaN(Number(valor)));
+
 function armarHeaderMenu(){
 const tagHeader = document.querySelector("header");
 
@@ -253,6 +256,8 @@ function armarFormularioCrearArticulo(e){
     e.preventDefault();
     console.log("armar formulario crear articulo");
     const tagMain = document.querySelector("main");
+    tagMain.id = "idMain";
+    tagMain.className = "claseMain";
     tagMain.innerHTML = "";
     //
     const tagDivContenedor = document.createElement("div");
@@ -493,9 +498,12 @@ function mostrarListado(e){
 }
 
 function armarListarArticulos(e){
-    e.preventDefault();
-    const tagMain = document.querySelector("main");
-    tagMain.innerHTML = "";
+     e.preventDefault();
+
+     const tagMain = document.querySelector("main");
+     tagMain.id = "idMain";
+     tagMain.className = "claseMain";
+     tagMain.innerHTML = "";
     //
     const tagDivContenedor = document.createElement("div");
     tagDivContenedor.className = "contenedorListarArticulos";
@@ -573,13 +581,96 @@ function armarListarArticulos(e){
 };
 
 const elementoListarArticulos = document.getElementById("idListarArticulos");
+// const tagMain = document.querySelector("main");
+// tagMain.innerHTML = "";
 elementoListarArticulos.addEventListener("click", armarListarArticulos);
 
 function buscarArticulos(e){
   e.preventDefault();
   console.log("buscarArticulos");
   const tagMain = document.getElementById("idMain");
-   
+  const tagDivContenedorResultadoBuscar = document.getElementById("idContenedorResultadosBuscar");
+  tagDivContenedorResultadoBuscar.innerHTML = "";
+  const tagDivArticulosEncontrados = document.createElement("div");
+  tagDivArticulosEncontrados.id = "idRegistrosEncontrados";
+  tagDivArticulosEncontrados.className = "claseRegistrosEncontrados";
+  
+  const idBuscar = parseInt(document.getElementById("idIDBuscar").value);
+  console.log("idBuscar: " + idBuscar);
+  
+  const marcaBuscar = document.getElementById("idMarcaBuscar").value;
+  console.log("marcaBuscar: " + marcaBuscar);
+  
+  const categoriaBuscar = document.getElementById("idCategoriaBuscar").value;
+  console.log("categoriaBuscar: " + categoriaBuscar);
+
+  let articulosEncontrados = [];
+
+  if (listaPrecioArticulos.some(articulo => articulo.id == idBuscar)){
+     let articuloEncontrado = listaPrecioArticulos.find(articulo => articulo.id == idBuscar);
+     articulosEncontrados = [
+        {          
+          id: articuloEncontrado.id,
+          codigo: articuloEncontrado.codigo,
+          nombre: articuloEncontrado.nombre,
+          marca: articuloEncontrado.marca,
+          categoria: articuloEncontrado.categoria,
+          precio: articuloEncontrado.precio
+        }
+      ];
+  };
+  //
+  //console.log("0010-id-articulosEncontrados: " + articulosEncontrados);
+  //console.log("0010-id-articulosEncontrados.length: " + articulosEncontrados.length);
+  //
+  if (articulosEncontrados.length == 0) {
+    //let articuloEncontrado = listaPrecioArticulos.find(articulo => articulo.id == idBuscar);
+    if (categoriaBuscar.length > 0){
+       articulosEncontrados = listaPrecioArticulos.filter(
+         articulo => articulo.categoria.toUpperCase() == categoriaBuscar.toUpperCase()
+       );
+    };
+  } else  {
+      articulosEncontrados = articulosEncontrados.filter(
+         articulo => articulo.categoria.toUpperCase() == categoriaBuscar.toUpperCase()
+      );
+  };
+  //
+  console.log("0020-categoria-articulosEncontrados: " + articulosEncontrados);
+  console.log("0020-categoria-articulosEncontrados.length: " + articulosEncontrados.length);
+  //
+  if (articulosEncontrados.length == 0) {
+    //let articuloEncontrado = listaPrecioArticulos.find(articulo => articulo.id == idBuscar);
+    if (marcaBuscar.length > 0){
+       articulosEncontrados = listaPrecioArticulos.filter(
+         articulo => articulo.marca.toUpperCase().includes(marcaBuscar.toUpperCase())
+       );
+    };
+  } else  {
+      articulosEncontrados = articulosEncontrados.filter(
+         articulo => articulo.marca.toUpperCase().includes(marcaBuscar.toUpperCase())         
+      );
+  };
+
+  //
+  articulosEncontrados.forEach(articulo => {
+        const registro = document.createElement("div");    
+        registro.id = "idRegistroEncontrado";
+        registro.className = "claseRegistroEncontrado";    
+        registro.innerHTML = `
+            <h6>ID: ${articulo.id}</h6>
+            <h6>CODIGO: ${articulo.codigo.toUpperCase()}</h6>
+            <h6>NOMBRE: ${articulo.nombre.toUpperCase()}</h6>
+            <h6>MARCA:  ${articulo.marca.toUpperCase()}</h6>
+            <h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
+            <h6>PRECIO: $${articulo.precio}</h6>
+        `;        
+        tagDivArticulosEncontrados.appendChild(registro);
+    });
+
+  tagDivContenedorResultadoBuscar.appendChild(tagDivArticulosEncontrados);
+  tagMain.appendChild(tagDivContenedorResultadoBuscar);
+
 }
 
 function armarBuscarArticulos(e){
@@ -587,6 +678,7 @@ function armarBuscarArticulos(e){
     const tagMain = document.querySelector("main");
     tagMain.innerHTML = "";
     tagMain.id = "idMain";
+    tagMain.className = "claseMain";
     //
     const tagDivContenedor = document.createElement("div");
     tagDivContenedor.className = "contenedorBuscarArticulos";
@@ -614,13 +706,15 @@ function armarBuscarArticulos(e){
     tagFormularioIdDiv.className = "renglonFormularioArticulo";
     // crea tag label
     const tagFormularioIdLabel = document.createElement("label");
-    tagFormularioIdLabel.setAttribute("for", "idID");
+    tagFormularioIdLabel.setAttribute("for", "idIDBuscar");
     tagFormularioIdLabel.innerText = "ID: ";
     // crea tag input
     const tagFormularioIdInput = document.createElement("input");
-    tagFormularioIdInput.type = "text";
-    tagFormularioIdInput.id = "idID";
+    tagFormularioIdInput.type = "number";
+    tagFormularioIdInput.id = "idIDBuscar";
     tagFormularioIdInput.name = "ID";
+    tagFormularioIdInput.min = 1;
+    tagFormularioIdInput.max = listaPrecioArticulos.length;
     // carga el label en el div
     tagFormularioIdDiv.appendChild(tagFormularioIdLabel);
     // carga el input en el div
@@ -635,14 +729,13 @@ function armarBuscarArticulos(e){
     tagFormularioMarcaDiv.className = "renglonFormularioArticulo";
     // crea tag label
     const tagFormularioMarcaLabel = document.createElement("label");
-    tagFormularioMarcaLabel.setAttribute("for", "idMarca");
+    tagFormularioMarcaLabel.setAttribute("for", "idMarcaBuscar");
     tagFormularioMarcaLabel.innerText = "Marca: ";
     // crea tag input
     const tagFormularioMarcaInput = document.createElement("input");
     tagFormularioMarcaInput.type = "text";
-    tagFormularioMarcaInput.id = "idMarca";
+    tagFormularioMarcaInput.id = "idMarcaBuscar";
     tagFormularioMarcaInput.name = "marca";
-    tagFormularioMarcaInput.required = true;
     // carga el label en el div
     tagFormularioMarcaDiv.appendChild(tagFormularioMarcaLabel);
     // carga el input en el div
@@ -660,9 +753,8 @@ function armarBuscarArticulos(e){
     tagFormularioCategoriaLabel.innerText = "Categoria: ";
     // crea tag select
     const tagFormularioCategoriaSelect = document.createElement("select");
-    tagFormularioCategoriaSelect.id = "idCategoria";
+    tagFormularioCategoriaSelect.id = "idCategoriaBuscar";
     tagFormularioCategoriaSelect.name = "categoria";
-    tagFormularioCategoriaSelect.required = true;
     //
     const tagSelectOptionValue1 = document.createElement("option");
     tagSelectOptionValue1.innerText = "Seleccione una categoria";
@@ -701,6 +793,12 @@ function armarBuscarArticulos(e){
 
     tagDivContenedorBuscarArticulos.appendChild(tagFormulario);
     tagDivContenedor.appendChild(tagDivContenedorBuscarArticulos);
+
+    const tagDivContenedorResultadoBuscar = document.createElement("div");
+    tagDivContenedorResultadoBuscar.id = "idContenedorResultadosBuscar";
+    tagDivContenedorResultadoBuscar.className = "claseContenedorResultadosBuscar";   
+
+    tagMain.appendChild(tagDivContenedorResultadoBuscar);
     tagMain.appendChild(tagDivContenedor);
 };
 
@@ -716,6 +814,8 @@ function armarVerificarExistenciaArticulo(e){
     console.log("armar VerificarExistenciaArticulo");
     const tagMain = document.querySelector("main");
     tagMain.innerHTML = "";
+    tagMain.id = "idMain";
+    tagMain.className = "claseMain";
     //
     const tagDivContenedor = document.createElement("div");
     tagDivContenedor.className = "contenedorVerificarExistenciaArticulo";
