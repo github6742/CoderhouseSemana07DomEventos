@@ -6,24 +6,21 @@
 
 body {
     font-family: Arial, sans-serif;
-    /* background-color: #f4f4f9; */
     background-color: whitesmoke;
     padding: 10px; 
 }
 
 header, main, footer {
     padding: 10px; 
-    /* background-color: aquamarine; */
 }
  .contenedorHeader {
     padding: 10px; 
-    /* background-color: red; */
 } 
 
 .contenedorHeaderElementos{
     padding: 10px; 
-    /* background-color: green; */
 }
+
 .headerH1Menu{
     padding: 10px; 
     background-color: rgb(164, 240, 167); 
@@ -31,8 +28,8 @@ header, main, footer {
     text-align: center;
     text-justify: center;
     border-radius: 8px;
-
 }
+
 .headerNavMenu{
     margin: 10px 0px 0px 0px;
     padding: 10px; 
@@ -46,7 +43,6 @@ header, main, footer {
 
 .headerUlMenu{
     padding: 10px; 
-    /* background-color: rgb(222, 14, 160); */
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -60,20 +56,25 @@ header, main, footer {
     color: green;
 } 
 
-.contenedorCrearArticulo, .contenedorBuscarArticulos, .contenedorVerificarExistenciaArticulo, .claseContenedorResultadosBuscar {
+.contenedorFormulario, .contenedorBuscarArticulosResultados, .contenedorResultadosVerificar{
     max-width: 900px;
     margin: 0 auto;
 }
 
-.contenedorFormulario, .contenedorListado {
+.contenedorListadoArticulos {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.contenedorFormularioElementos {
     background: #ddeeec;
     margin-top: 10px;
     padding: 10px;
     border-radius: 8px;
 }
 
-.contenedorFormularioTitulo, .contenedorListadoTitulo, .contenedorBuscarArticulosTitulo, .contenedorVerificarExistenciaArticuloTitulo{
-    /* color:#28a745; */
+.contenedorFormularioTitulo, .contenedorListadoTitulo, .contenedorBuscarArticulosTitulo, 
+.contenedorVerificarArticuloTitulo {
     color: green;
     padding: 10px;
     align-items: center;
@@ -81,7 +82,6 @@ header, main, footer {
 }
 
 .renglonFormularioArticulo{
-    /* margin-bottom: 15px; */
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -90,9 +90,7 @@ header, main, footer {
 
 .renglonFormularioArticulo label{
     display: inline-block; 
-    /* color:rgb(12, 144, 91); */
     color: green;
-    /* font-weight: bold; */
     min-width: 150px;      
     text-align: left;
 }
@@ -101,12 +99,15 @@ header, main, footer {
     flex: 1;                
     padding: 8px;
     box-sizing: border-box;
-    /* border: 1px solid #ccc; */
     border-radius: 4px;
+    width: 100%;
 }
 
-.botonGuardarFormulario, .botonBuscarFormulario, .botonVerificarExistenciaArticuloFormulario {
-    /* background-color: #28a745; */
+h6{
+  overflow-wrap: break-word;
+}
+
+.buttonGlobal {
     background-color: green;
     font-weight: bold; 
     color: white;
@@ -123,21 +124,22 @@ header, main, footer {
     margin: 0 auto;
 }
 
-.tablaListado{    
+/* .tablaListado, */
+.listarArticulosTabla{    
     width: 100%;
     margin-top: 10px;
-    /* background-color: #fff; */
     border-radius: 8px;
 }
 
-.tablaListado th, .tablaListado td {
+/* .tablaListado th, .tablaListado td , */
+.listarArticulosTabla th, .listarArticulosTabla td
+{
     padding: 12px 15px;
     text-align: left;
-    /* border-bottom: 1px solid #e0e0e0; */
 }
 
-.tablaListado th {
-    /* background-color: #28a745; */
+/* .tablaListado th, */
+.listarArticulosTabla th {
     background-color: green;
     color: white;
     font-weight: bold;
@@ -145,22 +147,28 @@ header, main, footer {
     font-size: 14px;
 }
 
-.tablaListado tbody tr:nth-child(even) {
-    /* background-color: #f8f9fa; */
+/* .tablaListado tbody tr:nth-child(even) , */
+.listarArticulosTabla tbody tr:nth-child(even) 
+{
     background-color: rgb(185, 206, 191);
 }
 
-.tablaListado th:last-child, .tablaListado td:last-child {
+/* .tablaListado th:last-child, .tablaListado td:last-child , */
+.listarArticulosTabla th:last-child, .tablaListado td:last-child 
+{
     text-align: right;
 }
 
-.claseRegistrosEncontrados {
+.registrosEncontrados/*,
+.contenedorBuscarArticulosResultados*/
+ {
     display: flex;
-    /* justify-content: space-around; */
     flex-wrap: wrap;
+    background: #ddeeec;
+    margin-top: 1rem;
 }
 
-.claseRegistroEncontrado{
+.registroEncontrado{
     display: flex;
     background-color: rgb(174, 226, 169);
     flex-direction: column;
@@ -170,4 +178,107 @@ header, main, footer {
     width: 8rem;
     border: solid 1px darkgray;
     border-radius: 0.5rem;
+    padding: 10px;
+    margin: 10px;
+}
+
+.errorAgregarCarrito {
+    color: red; 
+    display: none; 
+    margin-top: 5px; 
+    font-size: 14px;
+}
+
+.buttonCarrito {
+    background-color: green;
+    font-weight: bold; 
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/*
+.contenedorMostrarCarrito {
+    width: 100%;    
+    background-color: #ddeeec;
+    border-radius: 0.5rem;
+    padding: 10px;
+    margin: 10px;
+    background-color: red;
+}
+
+.contenedorMostrarCarritoElementos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem;
+    padding: 10px;
+    margin: 10px;
+    background-color: yellow;
+}
+
+.registrosEncontradosCarrito
+ {
+    display: flex;
+    flex-wrap: wrap;
+    background: #ddeeec;
+    margin-top: 1rem;
+}
+    */
+
+
+
+.contenedorMostrarCarritoBotones {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.mostrarCarritoBotones {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: #ddeeec;
+    border-radius: 8px;
+}
+.contenedorVerCarrito{
+    max-width: 900px;
+    margin: 0 auto;
+}
+.contenedorVerCarritoElementos{
+    margin-top: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: #ddeeec;
+}
+.contenedorRegistroEncontradoCarrito{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.registroEncontradoCarrito{
+    /* display: flex; */
+    background-color: rgb(174, 226, 169);
+    flex-direction: row;
+    justify-content: space-evenly;   
+    height: 15rem;
+    width: 8rem;
+    border: solid 1px darkgray;
+    border-radius: 0.5rem;
+    padding: 10px;
+    margin: 10px;
+}
+
+/* h3 { */
+.verCarritoH3 {
+    width: 100%;
+    text-align: center;
+    color: green;
+}
+
+.verCarritoTotalP {
+    color: green;
 }

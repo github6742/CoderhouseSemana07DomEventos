@@ -1,5 +1,13 @@
-styles.panaderia.css
 styles.listado.css
+styles.panaderia.css
+armarHtmlBuscar.js
+armarHtmlVerificar.js
+datosBuscar.js
+datosVerificar.js
+ejemplo.js
+ejemplo2.js
+funcionesDatos.js
+funcionesHtml.js
 main.arrays.js
 main.clase.dom.1.js
 main.clase.dom.2.js
@@ -12,9 +20,11 @@ main.temp.js
 main.temp2.js
 main.temp3.js
 main.temp4.js
+main2.js
 #favicon.ico
 index.formulario.html
 #index.html
 index.listado.html
 index.panaderia.html
+mensajeErrorCarrito.html
 productos.html
