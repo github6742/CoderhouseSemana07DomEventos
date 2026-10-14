@@ -596,9 +596,9 @@ function crearFormularioComprarArticulos(e){
     tagDivContenedorFormularioElementos.appendChild(tagFormulario);
     tagDivContenedorFormulario.appendChild(tagDivContenedorFormularioElementos);
     //
-    const tagDivContenedorResultadoBuscar = document.createElement("div");
-    tagDivContenedorResultadoBuscar.id = "idContenedorBuscarArticulosResultados";
-    tagDivContenedorResultadoBuscar.className = "contenedorBuscarArticulosResultados"; 
-    tagMain.appendChild(tagDivContenedorResultadoBuscar);
+    // const tagDivContenedorResultadoBuscar = document.createElement("div");
+    // tagDivContenedorResultadoBuscar.id = "idContenedorBuscarArticulosResultados";
+    // tagDivContenedorResultadoBuscar.className = "contenedorBuscarArticulosResultados"; 
+    // tagMain.appendChild(tagDivContenedorResultadoBuscar);
     tagMain.appendChild(tagDivContenedorFormulario);
 };

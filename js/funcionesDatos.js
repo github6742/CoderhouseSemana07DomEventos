@@ -119,9 +119,11 @@ function crearListadoArticulosEncontrados(e){
        );
     };
   } else  {
+    if (categoriaBuscar.length > 0) {
       articulosEncontrados = articulosEncontrados.filter(
          articulo => articulo.categoria.toUpperCase() == categoriaBuscar.toUpperCase()
       );
+    };
   };
   //
   if (articulosEncontrados.length == 0) {
@@ -131,9 +133,11 @@ function crearListadoArticulosEncontrados(e){
        );
     };
   } else  {
+    if(marcaBuscar.length > 0) {
       articulosEncontrados = articulosEncontrados.filter(
          articulo => articulo.marca.toUpperCase().includes(marcaBuscar.toUpperCase())         
       );
+    };
   };
   //
   articulosEncontrados.forEach(articulo => {
@@ -205,10 +209,13 @@ function verCarrito(e){
   console.log("ver carrito");
   const tagMain = document.getElementById("idMain");
   //
-  const tagDivContenedorVerCarrito = document.getElementById("idContenedorVerCarrito");
-  const tagDivContenedorVerCarritoElementos = document.getElementById("idContenedorVerCarritoElementos");
-  tagDivContenedorVerCarrito.innerHTML = "";
-  tagDivContenedorVerCarritoElementos.innerHTML = "";
+  const tagDivContenedorVerCarrito = document.createElement("div");
+  tagDivContenedorVerCarrito.id = "idContenedorVerCarrito";
+  tagDivContenedorVerCarrito.className = "contenedorVerCarrito";
+  //
+  const tagDivContenedorVerCarritoElementos = document.createElement("div");
+  tagDivContenedorVerCarritoElementos.id = "idContenedorVerCarritoElementos";
+  tagDivContenedorVerCarritoElementos.className= "contenedorVerCarritoElementos";
   //
   const tagVerCarritoH3 = document.createElement("H3");
   tagVerCarritoH3.id = "idVerCarritoH3";
@@ -235,41 +242,50 @@ function verCarrito(e){
             <h6>TOTAL: $${articulo.precio*articulo.cantidad}</h6>
         `;        
         totalCarrito += articulo.precio*articulo.cantidad;
-        //tagDivContenedorVerCarritoElementos.appendChild(registro);
         tagContenedorRegistroEncontradoCarrito.appendChild(registro);
     }
   );
-  tagDivContenedorVerCarritoElementos.appendChild(tagContenedorRegistroEncontradoCarrito);
-  
+  //
+  tagDivContenedorVerCarritoElementos.appendChild(tagContenedorRegistroEncontradoCarrito);  
   //
   const tagVerCarritoTotalP = document.createElement("p");
   tagVerCarritoTotalP.id = "idVerCarritoTotalP";
   tagVerCarritoTotalP.className = "verCarritoTotalP";
   tagVerCarritoTotalP.innerText = "Total del carrito: " + totalCarrito;
   tagDivContenedorVerCarritoElementos.appendChild(tagVerCarritoTotalP);
-
+  //
   tagDivContenedorVerCarrito.appendChild(tagDivContenedorVerCarritoElementos);
-  tagMain.appendChild(tagDivContenedorVerCarrito);
   //
-  //const tagDivContenedorMostrarCarrito = document.getElementById("idContenedorMostrarCarrito");
-  //
-  //tagDivContenedorVerCarrito.appendChild(tagDivContenedorElementosVerCarrito);
-  //tagDivContenedorMostrarCarrito.appendChild(tagDivContenedorVerCarrito);
+  if (document.getElementById("idContenedorVerCarrito")) {
+     tagMain.replaceChild(tagDivContenedorVerCarrito,document.getElementById("idContenedorVerCarrito"));
+  } else {
+     tagMain.appendChild(tagDivContenedorVerCarrito);
+  };
 };
 
 function ocultarCarrito(e){
   e.preventDefault();
   console.log("ocultar carrito");
-  const tagDivContenedorVerCarritoElementos = document.getElementById("idContenedorVerCarritoElementos");
-  tagDivContenedorVerCarritoElementos.innerHTML = "";
+  //const tagDivContenedorVerCarritoElementos = document.getElementById("idContenedorVerCarritoElementos");
+  //tagDivContenedorVerCarritoElementos.innerHTML = "";
+  if (document.getElementById("idContenedorVerCarrito")){
+     document.getElementById("idMain").removeChild(document.getElementById("idContenedorVerCarrito"));
+  };
 };
 
 function vaciarCarrito(e){
   e.preventDefault();
   console.log("vaciar carrito");
-  const tagDivContenedorVerCarritoElementos = document.getElementById("idContenedorVerCarritoElementos");
-  tagDivContenedorVerCarritoElementos.innerHTML = "";
-  carritoCompras.splice(0,carritoCompras.length);
+  //const tagDivContenedorVerCarritoElementos = document.getElementById("idContenedorVerCarritoElementos");
+  //tagDivContenedorVerCarritoElementos.innerHTML = "";
+  
+  if (document.getElementById("idContenedorVerCarrito")){
+     document.getElementById("idMain").removeChild(document.getElementById("idContenedorVerCarrito"));
+  };
+
+  if (carritoCompras.length > 0) {
+     carritoCompras.splice(0,carritoCompras.length);
+  };
 };
 
 function agregarAlCarrito(articulo, cantidad){
@@ -284,6 +300,33 @@ function agregarAlCarrito(articulo, cantidad){
   } else {
     console.log("id-no existe: " + articulo.id);
     carritoCompras.push(articulo);
+        const registro = document.createElement("div");    
+        registro.id = "idRegistroEncontradoCarrito";
+        registro.className = "registroEncontradoCarrito";    
+        registro.innerHTML = `
+            <h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
+            <h6>CODIGO: ${articulo.codigo.toUpperCase()}</h6>
+            <h6>NOMBRE: ${articulo.nombre.toUpperCase()}</h6>
+            <h6>MARCA:  ${articulo.marca.toUpperCase()}</h6>
+            <h6>CANIDAD: ${articulo.cantidad}</h6>
+            <h6>PRECIO: $${articulo.precio}</h6>
+            <h6>TOTAL: $${articulo.precio*articulo.cantidad}</h6>
+        `;        
+        //totalCarrito += articulo.precio*articulo.cantidad;
+        if(document.getElementById("idContenedorRegistroEncontradoCarrito")) {
+          document.getElementById("idContenedorRegistroEncontradoCarrito").appendChild(registro);
+          const totalCarrito = carritoCompras.reduce((sumador,articulo)  => sumador + (parseInt(articulo.precio)*parseInt(articulo.cantidad)),0);
+          if(document.getElementById("idVerCarritoTotalP")){
+               document.getElementById("idVerCarritoTotalP").innerText = "Total del carrito: " + totalCarrito;
+          };
+        }
+        /*
+        const total = carritoCompras.reduce((sumador,[articulo,valorCantidad])  => sumador + (parseInt(articulo.precio)*parseInt(valorCantidad)),0);
+  tagVerCarritoTotalP.id = "idVerCarritoTotalP";
+  tagVerCarritoTotalP.className = "verCarritoTotalP";
+  tagVerCarritoTotalP.innerText = "Total del carrito: " + totalCarrito;
+  tagDivContenedorVerCarritoElementos.appendChild(tagVerCarritoTotalP);
+        */
   };
   //
   console.log("carritoCompras.length: " + carritoCompras.length);
@@ -291,23 +334,15 @@ function agregarAlCarrito(articulo, cantidad){
   if (carritoCompras.length > 0){
     //
     const tagMain = document.getElementById("idMain");
-    const tagContenedorBuscarArticulosResultados = document.getElementById("idContenedorBuscarArticulosResultados");
-    const tagDivContenedorMostrarCarrito = document.getElementById("idContenedorMostrarCarrito");
-    const tagDivContenedorMostrarCarritoElementos = document.getElementById("idContenedorMostrarCarritoElementos");
-    const tagDivContenedorMostrarCarritoBotones = document.getElementById("idContenedorMostrarCarritoBotones");
-    //
-    //tagDivContenedorMostrarCarrito.innerHTML = "";
-    //tagDivContenedorMostrarCarritoElementos.innerHTML = "";
-    //
-    //const tagDivContenedorMostrarCarritoElementos = document.createElement("div");
-    //tagDivContenedorMostrarCarritoElementos.id = "idContenedorMostrarCarritoElementos";
-    //tagDivContenedorMostrarCarritoElementos.className = "contenedorMostrarCarritoElementos";
-    //
-    //const tagDivMostrarCarritoBotones = document.createElement("div");
-    //tagDivMostrarCarritoBotones.id = "idMostrarCarritoBotones";
-    //tagDivMostrarCarritoBotones.className = "mostrarCarritoBotones";
-    const tagDivMostrarCarritoBotones = document.getElementById("idMostrarCarritoBotones");
-    tagDivMostrarCarritoBotones.innerHTML = "";
+    const tagDivContenedorMostrarCarritoBotones = document.createElement("div");
+    tagDivContenedorMostrarCarritoBotones.id = "idContenedorMostrarCarritoBotones";
+    tagDivContenedorMostrarCarritoBotones.className = "contenedorMostrarCarritoBotones";
+    const tagDivContenedorMostrarCarritoElementos = document.createElement("div");
+    tagDivContenedorMostrarCarritoElementos.id = "idContenedorMostrarCarritoElementos";
+    tagDivContenedorMostrarCarritoElementos.className = "contenedorMostrarCarritoElementos";
+    const tagDivMostrarCarritoBotones = document.createElement("div");
+    tagDivMostrarCarritoBotones.id = "idMostrarCarritoBotones";
+    tagDivMostrarCarritoBotones.className = "mostrarCarritoBotones";
     //
     const tagButtonVerCarrito = document.createElement("button");
     tagButtonVerCarrito.id = "idVerCarrito";
@@ -327,59 +362,64 @@ function agregarAlCarrito(articulo, cantidad){
     tagButtonVaciarCarrito.innerText = "Vaciar Carrito";
     tagButtonVaciarCarrito.addEventListener("click",vaciarCarrito);
     //
-    //tagDivContenedorMostrarCarritoElementos.appendChild(tagButtonVerCarrito);
-    //tagDivContenedorMostrarCarritoElementos.appendChild(tagButtonOcultarCarrito);
-    //tagDivContenedorMostrarCarritoElementos.appendChild(tagButtonVaciarCarrito);
-    //tagDivContenedorMostrarCarrito.appendChild(tagDivContenedorMostrarCarritoElementos);
-    //
-    //
     tagDivMostrarCarritoBotones.appendChild(tagButtonVerCarrito);
     tagDivMostrarCarritoBotones.appendChild(tagButtonOcultarCarrito);
     tagDivMostrarCarritoBotones.appendChild(tagButtonVaciarCarrito);
-    //tagDivContenedorMostrarCarrito.appendChild(tagDivContenedorMostrarCarritoElementos);
-    //
-    /*
-
-    const tagDivMostrarCarritoBotones = document.createElement("div");
-    tagDivMostrarCarritoBotones.id = "idMostrarCarritoBotones";
-    tagDivMostrarCarritoBotones.className = "mostrarCarritoBotones";
-
     tagDivContenedorMostrarCarritoBotones.appendChild(tagDivMostrarCarritoBotones);
+ 
+    if (document.getElementById("idContenedorMostrarCarritoBotones")){
+       tagMain.replaceChild(tagDivContenedorMostrarCarritoBotones,document.getElementById("idContenedorMostrarCarritoBotones"));
+    } else {
+       tagMain.appendChild(tagDivContenedorMostrarCarritoBotones);
+    };
+  };
 
-    */
-   /*
-    const tagDivContenedorVerCarrito = document.createElement("div");
-    tagDivContenedorVerCarrito.id = "idContenedorVerCarrito";
-    tagDivContenedorVerCarrito.className = "contenedorVerCarrito";
-    //
-    const tagDivContenedorVerCarritoElementos = document.createElement("div");
-    tagDivContenedorVerCarritoElementos.id = "idContenedorVerCarritoElementos";
-    tagDivContenedorVerCarritoElementos.className = "contenedorVerCarritoElementos";
-    tagDivContenedorVerCarrito.appendChild(tagDivContenedorVerCarritoElementos);
-    */
-
-    tagDivContenedorMostrarCarritoBotones.appendChild(tagDivMostrarCarritoBotones);
-    //tagDivContenedorMostrarCarritoBotones.appendChild(tagDivContenedorVerCarrito);
-    //tagMain.appendChild(tagDivMostrarCarritoBotones);
-  }
+   
+  /*
+  appem
+  const tagContenedorRegistroEncontradoCarrito = document.createElement("div");
+  tagContenedorRegistroEncontradoCarrito.id = "idContenedorRegistroEncontradoCarrito";
+  tagContenedorRegistroEncontradoCarrito.className = "contenedorRegistroEncontradoCarrito";
+  //
+  let totalCarrito = 0;
+  carritoCompras.forEach( articulo =>{ 
+        const registro = document.createElement("div");    
+        registro.id = "idRegistroEncontradoCarrito";
+        registro.className = "registroEncontradoCarrito";    
+        registro.innerHTML = `
+            <h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
+            <h6>CODIGO: ${articulo.codigo.toUpperCase()}</h6>
+            <h6>NOMBRE: ${articulo.nombre.toUpperCase()}</h6>
+            <h6>MARCA:  ${articulo.marca.toUpperCase()}</h6>
+            <h6>CANIDAD: ${articulo.cantidad}</h6>
+            <h6>PRECIO: $${articulo.precio}</h6>
+            <h6>TOTAL: $${articulo.precio*articulo.cantidad}</h6>
+        `;        
+        totalCarrito += articulo.precio*articulo.cantidad;
+        tagContenedorRegistroEncontradoCarrito.appendChild(registro);
+    }
+  );
+  //
+  tagDivContenedorVerCarritoElementos.appendChild(tagContenedorRegistroEncontradoCarrito);
+  */
 };
 
 function crearFormularioComprar(e){
   e.preventDefault();
   console.log("crearFormularioComprar");
   const tagMain = document.getElementById("idMain");
-  const tagDivContenedorResultadoBuscar = document.getElementById("idContenedorBuscarArticulosResultados");
-  tagDivContenedorResultadoBuscar.innerHTML = "";
   const tagDivArticulosEncontrados = document.createElement("div");
   tagDivArticulosEncontrados.id = "idRegistrosEncontrados";
   tagDivArticulosEncontrados.className = "registrosEncontrados";
+  //
   const categoriaBuscar = document.getElementById("idBuscarArticulosCategoria").value;
   const marcaBuscar = document.getElementById("idBuscarArticulosMarca").value;
+  //
   console.log("categoriaBuscar: " + categoriaBuscar);
   console.log("marcaBuscar: " + marcaBuscar);
-
+  //
   let articulosEncontrados = [];
-  
+  //
   if (categoriaBuscar.length > 0){
      articulosEncontrados = listaPrecioArticulos.filter(
          articulo => articulo.categoria.toUpperCase() == categoriaBuscar.toUpperCase()
@@ -393,15 +433,14 @@ function crearFormularioComprar(e){
        );
     };
   } else  {
+     if (marcaBuscar.length > 0) {
       articulosEncontrados = articulosEncontrados.filter(
          articulo => articulo.marca.toUpperCase().includes(marcaBuscar.toUpperCase())         
       );
+    };
   };
   //
-  let ingreso;
-  ingreso  = 0;
   articulosEncontrados.forEach(articulo => {
-    ingreso += 1;
         const registro = document.createElement("div");    
         registro.id = "idRegistroEncontrado";
         registro.className = "registroEncontrado"; 
@@ -424,7 +463,6 @@ function crearFormularioComprar(e){
         tagLabelCantidad.setAttribute("for", "idListarArticulosDescuento");
         tagLabelCantidad.className = "labelGlobal";
         tagLabelCantidad.innerText = "Cantidad: ";
-        // carga el label en el div
         tagRegistroEncontradoComprar.appendChild(tagLabelCantidad);
         //
         const tagInputCantidad = document.createElement("input");
@@ -459,54 +497,12 @@ function crearFormularioComprar(e){
         //
         tagDivArticulosEncontrados.appendChild(registro);
     });
-  //
-  // const tagDivContenedorMostrarCarrito = document.createElement("div");
-  // tagDivContenedorMostrarCarrito.id= "idContenedorMostrarCarrito";
-  // tagDivContenedorMostrarCarrito.className = "contenedorMostrarCarrito";
-  // const tagDivContenedorMostrarCarritoElementos = document.createElement("div");
-  // tagDivContenedorMostrarCarritoElementos.id= "idContenedorMostrarCarritoElementos";
-  // tagDivContenedorMostrarCarritoElementos.className = "contenedorMostrarCarritoElementos";
-  // tagDivContenedorMostrarCarrito.appendChild(tagDivContenedorMostrarCarritoElementos);
-console.log("ebcibtradis: " + articulosEncontrados.length);
-console.log("ebcibtradis: " + typeof articulosEncontrados.length);
-let cant=0;
-cant = parseInt(articulosEncontrados.lentgh);
-
-//if (parseInt(articulosEncontrados.lentgh) > 0 ) {
-//if (cant != 0 ) {
-if (ingreso >= 1 ) {
-  console.log("entosi")
-    const tagDivContenedorMostrarCarritoBotones = document.createElement("div");
-    tagDivContenedorMostrarCarritoBotones.id = "idContenedorMostrarCarritoBotones";
-    tagDivContenedorMostrarCarritoBotones.className = "contenedorMostrarCarritoBotones";
-
-    const tagDivMostrarCarritoBotones = document.createElement("div");
-    tagDivMostrarCarritoBotones.id = "idMostrarCarritoBotones";
-    tagDivMostrarCarritoBotones.className = "mostrarCarritoBotones";
-
-    tagDivContenedorMostrarCarritoBotones.appendChild(tagDivMostrarCarritoBotones);
-
-  tagDivContenedorResultadoBuscar.appendChild(tagDivArticulosEncontrados);
-  tagMain.appendChild(tagDivContenedorResultadoBuscar);
-  
-    const tagDivContenedorVerCarrito = document.createElement("div");
-    tagDivContenedorVerCarrito.id = "idContenedorVerCarrito";
-    tagDivContenedorVerCarrito.className = "contenedorVerCarrito";
-    //
-    const tagDivContenedorVerCarritoElementos = document.createElement("div");
-    tagDivContenedorVerCarritoElementos.id = "idContenedorVerCarritoElementos";
-    tagDivContenedorVerCarritoElementos.className = "contenedorVerCarritoElementos";
-    tagDivContenedorVerCarrito.appendChild(tagDivContenedorVerCarritoElementos);
+    if (document.getElementById("idRegistrosEncontrados")){
+    //tagMain.removeChild(document.getElementById("idRegistrosEncontrados"));
+    tagMain.replaceChild(tagDivArticulosEncontrados,document.getElementById("idRegistrosEncontrados"));
+    } else {
+    tagMain.appendChild(tagDivArticulosEncontrados);
+    };
    
-
-    tagDivContenedorMostrarCarritoBotones.appendChild(tagDivContenedorVerCarrito);
-  tagMain.appendChild(tagDivContenedorMostrarCarritoBotones);
-  //tagMain.appendChild(tagDivContenedorMostrarCarrito);
-
-} else {
-  
-  console.log("entono")
-}
-   
-}
+};
 
