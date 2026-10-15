@@ -181,8 +181,8 @@ class Articulo {
         this.precio = precio;
       };
 };
-
 const esNulo = (valor) => (valor == "");
+const esNaN = (valor) => (isNaN(Number(valor)));
 const esString = (valor) => (isNaN(Number(valor)));
 
 crearHeaderMenu();

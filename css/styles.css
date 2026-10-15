@@ -1,7 +1,7 @@
 *{
     box-sizing: border-box;
     padding: 0;
-    margin: 0;
+    margin: 0; 
 }
 
 body {
@@ -18,7 +18,7 @@ h6{
   overflow-wrap: break-word;
 }
 
- .contenedorHeader {
+.contenedorHeader {
     padding: 10px; 
 } 
 
@@ -66,10 +66,10 @@ h6{
     margin: 0 auto;
 }
 
-.contenedorListadoArticulos {
+/* .contenedorListadoArticulos {
     max-width: 1100px;
     margin: 0 auto;
-}
+} */
 
 .contenedorFormularioElementos {
     background: #ddeeec;
@@ -78,8 +78,8 @@ h6{
     border-radius: 8px;
 }
 
-.contenedorFormularioTitulo, .contenedorListadoTitulo, .contenedorBuscarArticulosTitulo, 
-.contenedorVerificarArticuloTitulo {
+.contenedorFormularioTitulo, .contenedorListadoTitulo, .contenedorBuscarArticulosTitulo
+/*,.contenedorVerificarArticuloTitulo*/ {
     color: green;
     padding: 10px;
     align-items: center;
@@ -120,10 +120,12 @@ h6{
     font-size: 16px;
 }
 
+/*
 .contenedorListarArticulos {
     max-width: 1100px;
     margin: 0 auto;
 }
+*/
 
 .listarArticulosTabla{    
     width: 100%;
@@ -177,8 +179,7 @@ h6{
 }
 
 .errorAgregarCarrito {
-    color: red; 
-    /* display: none;  */
+    color: red;  
     margin-top: 5px; 
     font-size: 14px;
 }
@@ -244,49 +245,19 @@ h6{
 .verCarritoTotalP {
     color: green;
 }
-/*//////////////////////////*/
-
 
 .mensajeDialog {
     width: 350px;
     padding: 25px;
     border: none;
+    background-color: rgb(194, 178, 225);
+    color: rgb(1, 61, 1);
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     text-align: center;
-    font-family: sans-serif;
+    justify-self: center;
+    align-self: center;
 }
 
-
-        /* Estilo para la caja del diálogo nativo */
-         dialog {
-            width: 350px;
-            padding: 25px;
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            text-align: center;
-            font-family: sans-serif;
-        } 
-
-        /* Variaciones de color controladas limpiamente por clases */
-        .modal-exito { border-top: 5px solid #28a745; }
-        .modal-error { border-top: 5px solid #dc3545; }
-
-        .btn-cerrar {
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-        .modal-exito .btn-cerrar { background-color: #28a745; }
-        .modal-error .btn-cerrar { background-color: #dc3545; }
-
-        /* PSEUDO-ELEMENTO NATIVO: Así de fácil se estiliza el fondo oscuro con <dialog> */
-         dialog::backdrop {
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(3px); 
-        } 
+label.labelInputDescuento {
+    color: green;
+}

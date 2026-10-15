@@ -1,63 +1,4 @@
-function ejemplo(tipo, texto){
-        const formulario = document.getElementById('formularioArticulo');
-
-        // FUNCIÓN: Crea, emite y destruye el <dialog> de forma dinámica
-        function emitirMensajeDialog(tipo, texto) {
-            // 1. Crear el elemento <dialog> dinámicamente desde cero en el DOM
-            const miDialogo = document.createElement('dialog');
-            
-            // 2. Asignar clases de CSS ya existentes según el resultado
-            miDialogo.classList.add(tipo === 'exito' ? 'modal-exito' : 'modal-error');
-
-            // 3. Estructurar el contenido interno del diálogo de forma limpia
-            miDialogo.innerHTML = `
-                <h3>${tipo === 'exito' ? '✔ ¡Éxito!' : '❌ Error'}</h3>
-                <p>${texto}</p>
-                <button class="btn-cerrar">Aceptar</button>
-            `;
-
-            // 4. Adjuntar el nuevo elemento al cuerpo del documento (DOM)
-            document.body.appendChild(miDialogo);
-
-            // 5. LLAMADA NATIVA: Abre el diálogo como un modal real
-            // Esto bloquea automáticamente el fondo e impide interactuar con el formulario
-            miDialogo.showModal();
-
-            // 6. BORRADO DINÁMICO: Escuchar el clic del botón interno para cerrar y destruir
-            miDialogo.querySelector('.btn-cerrar').addEventListener('click', () => {
-                miDialogo.close();    // Cierra el modal nativamente
-                miDialogo.remove();   // Lo destruye completamente de la memoria del DOM
-            });
-        }
-
-        // --- Manejadores de eventos de los botones ---
-
-        document.getElementById('btnExito').addEventListener('click', function(e) {
-            if(!formulario.checkValidity()) return;
-            e.preventDefault();
-            const titulo = document.getElementById('titulo').value;
-            
-            emitirMensajeDialog('exito', `El artículo "${titulo}" fue guardado correctamente.`);
-            formulario.reset();
-        });
-
-        document.getElementById('btnError').addEventListener('click', function(e) {
-            if(!formulario.checkValidity()) return;
-            e.preventDefault();
-            
-            emitirMensajeDialog('error', 'No se pudo guardar el artículo debido a un fallo en el servidor.');
-        });
-};
-
 function crearMensajeDialog(tipo, texto){
-    //
-    // const tagContenedorMensajeDialog = document.createElement("div");
-    // tagContenedorMensajeDialog.id = "idContenedorMensajeDialog";
-    // tagContenedorMensajeDialog.className = "contenedorMensajeDialog";
-    // //
-    // const tagContenedorMensajeElementosDialog = document.createElement("div");
-    // tagContenedorMensajeElementosDialog.id = "idContenedorMensajeElementosDialog";
-    // tagContenedorMensajeElementosDialog.className = "contenedorMensajeElementosDialog";
     //
     const tagMensajeDialog = document.createElement("dialog");
     tagMensajeDialog.id = "idMensajeDialog";
@@ -76,7 +17,7 @@ function crearMensajeDialog(tipo, texto){
     //
     const tagMensajeBotonDialog = document.createElement("button");
     tagMensajeBotonDialog.id = "idMensajeBotonDialog";
-    tagMensajeBotonDialog.className = "mensajeBotonDialog";
+    tagMensajeBotonDialog.className = "buttonGlobal";
     tagMensajeBotonDialog.innerText = "Aceptar";
     tagMensajeBotonDialog.addEventListener("click", function() {
         tagMensajeDialog.close();
@@ -88,21 +29,6 @@ function crearMensajeDialog(tipo, texto){
     tagMensajeDialog.appendChild(tagMensajeBotonDialog);
     document.body.appendChild(tagMensajeDialog);
     tagMensajeDialog.showModal();
-    //
-    // //
-    // tagContenedorMensajeElementosDialog.appendChild(tagMensajeH3Dialog);
-    // tagContenedorMensajeElementosDialog.appendChild(tagMensajeParrafoDialog);
-    // tagContenedorMensajeElementosDialog.appendChild(tagMensajeBotonDialog);
-    // tagContenedorMensajeDialog.appendChild(tagContenedorMensajeElementosDialog);
-    // //
-    // //document.body.appendChild(tagContenedorMensajeDialog);
-    // if (document.getElementById("idMensajeDialog")){
-    //    document.body.replaceChild(tagContenedorMensajeDialog);
-    // } else {
-    //   document.body.appendChild(tagContenedorMensajeDialog);
-    // };
-    // //
-    // tagMensajeDialog.showModal();
 };
 
 function crearHeaderMenu(){
@@ -340,7 +266,7 @@ function crearFormularioListarArticulos(e){
     //
     const tagFormularioDescuentoLabel = document.createElement("label");
     tagFormularioDescuentoLabel.setAttribute("for", "idListarArticulosDescuento");
-    tagFormularioDescuentoLabel.className = "labelGlobal";
+    tagFormularioDescuentoLabel.className = "labelInputDescuento";
     tagFormularioDescuentoLabel.innerText = "Descuento: ";
     // carga el label en el div
     tagDivContenedorFormularioElementos.appendChild(tagFormularioDescuentoLabel);
