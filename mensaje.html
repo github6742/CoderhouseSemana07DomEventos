@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Artículo</title>
+    <style>
+        /* Estilos básicos para el mensaje en pantalla */
+        #mensaje {
+            margin-top: 15px;
+            padding: 10px;
+            display: none; /* Oculto al inicio */
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .exito {
+            /* background-color: #d4edda; */
+            color: #155724;
+            /* border: 1px solid #c3e6cb; */
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Crear Nuevo Artículo</h2>
+    
+    <!-- Formulario HTML -->
+    <form id="formularioArticulo">
+        <label for="titulo">Título del Artículo:</label><br>
+        <input type="text" id="titulo" required><br><br>
+
+        <label for="contenido">Contenido:</label><br>
+        <textarea id="contenido" required></textarea><br><br>
+
+        <button type="submit">Crear Artículo</button>
+    </form>
+
+    <!-- Contenedor donde se mostrará el mensaje en pantalla -->
+    <div id="mensaje"></div>
+
+    <!-- Lógica en JavaScript -->
+    <script>
+        // 1. Seleccionar el formulario y el contenedor del mensaje
+        const formulario = document.getElementById('formularioArticulo');
+        const mensajePantalla = document.getElementById('mensaje');
+        mensajePantalla.addEventListener("click",function(event){
+            if (document.getElementById('mensaje').innerText.length > 0){
+                 document.getElementById('mensaje').innerText = "";
+            }
+        })
+
+        // 2. Escuchar el evento de envío (submit)
+        formulario.addEventListener('submit', function(event) {
+            // Evita que la página se recargue por defecto al enviar
+            event.preventDefault(); 
+
+            // Aquí normalmente procesarías los datos (como enviarlos a una base de datos)
+            const titulo = document.getElementById('titulo').value;
+
+            // 3. Modificar y mostrar el mensaje en la pantalla
+            mensajePantalla.textContent = `¡El artículo "${titulo}" se ha creado con éxito!`;
+            mensajePantalla.className = "exito"; // Aplica los estilos CSS de éxito
+            mensajePantalla.style.display = "block"; // Hace visible el contenedor
+
+            // 4. Opcional: Limpiar los campos del formulario
+            formulario.reset();
+        });
+    </script>
+
+</body>
+</html>

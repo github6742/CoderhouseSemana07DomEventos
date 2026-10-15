@@ -13,6 +13,11 @@ body {
 header, main, footer {
     padding: 10px; 
 }
+
+h6{
+  overflow-wrap: break-word;
+}
+
  .contenedorHeader {
     padding: 10px; 
 } 
@@ -103,10 +108,6 @@ header, main, footer {
     width: 100%;
 }
 
-h6{
-  overflow-wrap: break-word;
-}
-
 .buttonGlobal {
     background-color: green;
     font-weight: bold; 
@@ -124,21 +125,18 @@ h6{
     margin: 0 auto;
 }
 
-/* .tablaListado, */
 .listarArticulosTabla{    
     width: 100%;
     margin-top: 10px;
     border-radius: 8px;
 }
 
-/* .tablaListado th, .tablaListado td , */
 .listarArticulosTabla th, .listarArticulosTabla td
 {
     padding: 12px 15px;
     text-align: left;
 }
 
-/* .tablaListado th, */
 .listarArticulosTabla th {
     background-color: green;
     color: white;
@@ -147,20 +145,17 @@ h6{
     font-size: 14px;
 }
 
-/* .tablaListado tbody tr:nth-child(even) , */
 .listarArticulosTabla tbody tr:nth-child(even) 
 {
     background-color: rgb(185, 206, 191);
 }
 
-/* .tablaListado th:last-child, .tablaListado td:last-child , */
 .listarArticulosTabla th:last-child, .tablaListado td:last-child 
 {
     text-align: right;
 }
 
-.registrosEncontrados/*,
-.contenedorBuscarArticulosResultados*/
+.registrosEncontrados
  {
     display: flex;
     flex-wrap: wrap;
@@ -173,7 +168,6 @@ h6{
     background-color: rgb(174, 226, 169);
     flex-direction: column;
     justify-content: space-evenly;
-    /* align-items: center; */
     height: 15rem;
     width: 8rem;
     border: solid 1px darkgray;
@@ -184,7 +178,7 @@ h6{
 
 .errorAgregarCarrito {
     color: red; 
-    display: none; 
+    /* display: none;  */
     margin-top: 5px; 
     font-size: 14px;
 }
@@ -200,41 +194,11 @@ h6{
     font-size: 16px;
 }
 
-/*
-.contenedorMostrarCarrito {
-    width: 100%;    
-    background-color: #ddeeec;
-    border-radius: 0.5rem;
-    padding: 10px;
-    margin: 10px;
-    background-color: red;
-}
-
-.contenedorMostrarCarritoElementos {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 1rem;
-    padding: 10px;
-    margin: 10px;
-    background-color: yellow;
-}
-
-.registrosEncontradosCarrito
- {
-    display: flex;
-    flex-wrap: wrap;
-    background: #ddeeec;
-    margin-top: 1rem;
-}
-    */
-
-
-
 .contenedorMostrarCarritoBotones {
     max-width: 900px;
     margin: 0 auto;
 }
+
 .mostrarCarritoBotones {
     display: flex;
     justify-content: space-around;
@@ -260,7 +224,6 @@ h6{
 }
 
 .registroEncontradoCarrito{
-    /* display: flex; */
     background-color: rgb(174, 226, 169);
     flex-direction: row;
     justify-content: space-evenly;   
@@ -272,7 +235,6 @@ h6{
     margin: 10px;
 }
 
-/* h3 { */
 .verCarritoH3 {
     width: 100%;
     text-align: center;
@@ -282,3 +244,49 @@ h6{
 .verCarritoTotalP {
     color: green;
 }
+/*//////////////////////////*/
+
+
+.mensajeDialog {
+    width: 350px;
+    padding: 25px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    text-align: center;
+    font-family: sans-serif;
+}
+
+
+        /* Estilo para la caja del diálogo nativo */
+         dialog {
+            width: 350px;
+            padding: 25px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-align: center;
+            font-family: sans-serif;
+        } 
+
+        /* Variaciones de color controladas limpiamente por clases */
+        .modal-exito { border-top: 5px solid #28a745; }
+        .modal-error { border-top: 5px solid #dc3545; }
+
+        .btn-cerrar {
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .modal-exito .btn-cerrar { background-color: #28a745; }
+        .modal-error .btn-cerrar { background-color: #dc3545; }
+
+        /* PSEUDO-ELEMENTO NATIVO: Así de fácil se estiliza el fondo oscuro con <dialog> */
+         dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px); 
+        } 

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Artículo con HTML5 Dialog</title>
+    <style>
+        /* Estilo para la caja del diálogo nativo */
+         dialog {
+            width: 350px;
+            padding: 25px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-align: center;
+            font-family: sans-serif;
+        } 
+
+        /* Variaciones de color controladas limpiamente por clases */
+        .modal-exito { border-top: 5px solid #28a745; }
+        .modal-error { border-top: 5px solid #dc3545; }
+
+        .btn-cerrar {
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .modal-exito .btn-cerrar { background-color: #28a745; }
+        .modal-error .btn-cerrar { background-color: #dc3545; }
+
+        /* PSEUDO-ELEMENTO NATIVO: Así de fácil se estiliza el fondo oscuro con <dialog> */
+         dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px); 
+        } 
+    </style>
+</head>
+<body>
+
+    <h2>Crear Nuevo Artículo</h2>
+    
+    <form id="formularioArticulo">
+        <label>Título del Artículo:</label><br>
+        <input type="text" id="titulo" required><br><br>
+        
+        <button type="submit" id="btnExito">Crear con Éxito</button>
+        <button type="submit" id="btnError" style="background-color: #ffc107;">Simular Error</button>
+    </form>
+
+    <script>
+        const formulario = document.getElementById('formularioArticulo');
+
+        // FUNCIÓN: Crea, emite y destruye el <dialog> de forma dinámica
+        function emitirMensajeDialog(tipo, texto) {
+            // 1. Crear el elemento <dialog> dinámicamente desde cero en el DOM
+            const miDialogo = document.createElement('dialog');
+            
+            // 2. Asignar clases de CSS ya existentes según el resultado
+            miDialogo.classList.add(tipo === 'exito' ? 'modal-exito' : 'modal-error');
+
+            // 3. Estructurar el contenido interno del diálogo de forma limpia
+            miDialogo.innerHTML = `
+                <h3>${tipo === 'exito' ? '✔ ¡Éxito!' : '❌ Error'}</h3>
+                <p>${texto}</p>
+                <button class="btn-cerrar">Aceptar</button>
+            `;
+
+            // 4. Adjuntar el nuevo elemento al cuerpo del documento (DOM)
+            document.body.appendChild(miDialogo);
+
+            // 5. LLAMADA NATIVA: Abre el diálogo como un modal real
+            // Esto bloquea automáticamente el fondo e impide interactuar con el formulario
+            miDialogo.showModal();
+
+            // 6. BORRADO DINÁMICO: Escuchar el clic del botón interno para cerrar y destruir
+            miDialogo.querySelector('.btn-cerrar').addEventListener('click', () => {
+                miDialogo.close();    // Cierra el modal nativamente
+                miDialogo.remove();   // Lo destruye completamente de la memoria del DOM
+            });
+        }
+
+        // --- Manejadores de eventos de los botones ---
+
+        document.getElementById('btnExito').addEventListener('click', function(e) {
+            if(!formulario.checkValidity()) return;
+            e.preventDefault();
+            const titulo = document.getElementById('titulo').value;
+            
+            emitirMensajeDialog('exito', `El artículo "${titulo}" fue guardado correctamente.`);
+            formulario.reset();
+        });
+
+        document.getElementById('btnError').addEventListener('click', function(e) {
+            if(!formulario.checkValidity()) return;
+            e.preventDefault();
+            
+            emitirMensajeDialog('error', 'No se pudo guardar el artículo debido a un fallo en el servidor.');
+        });
+    </script>
+
+</body>
+</html>

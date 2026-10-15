@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Artículo - Eventos de Animación</title>
+    <style>
+        /* Contenedor de las alertas */
+        #contenedor-alertas {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Estilo base de la alerta */
+        .alerta-emergente {
+            min-width: 280px;
+            max-width: 400px;
+            padding: 16px;
+            border-radius: 6px;
+            color: white;
+            font-family: sans-serif;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            
+            /* LA CLAVE: La animación dura 4 segundos en total */
+            /* Aparece al inicio, se mantiene, y se desvanece al final */
+            animation: cicloAlerta 4s forwards ease-in-out;
+        }
+
+        .alerta-exito { background-color: #28a745; }
+        .alerta-error { background-color: #dc3545; }
+
+        /* Línea de tiempo de la animación controlada por CSS */
+        @keyframes cicloAlerta {
+            0% { opacity: 0; transform: translateY(-10px); }
+            8% { opacity: 1; transform: translateY(0); }     /* Aparece rápido */
+            90% { opacity: 1; transform: translateY(0); }    /* Se mantiene visible */
+            100% { opacity: 0; transform: translateY(-5px); } /* Se desvanece al final */
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Crear Nuevo Artículo</h2>
+    
+    <form id="formularioArticulo">
+        <label>Título del Artículo:</label><br>
+        <input type="text" id="titulo" required><br><br>
+        
+        <button type="submit" id="btnExito">Crear con Éxito</button>
+        <button type="submit" id="btnError" style="background-color: #ffc107;">Simular Error</button>
+    </form>
+
+    <div id="contenedor-alertas"></div>
+
+    <script>
+        const formulario = document.getElementById('formularioArticulo');
+        const contenedorAlertas = document.getElementById('contenedor-alertas');
+
+        function emitirAlerta(tipo, texto) {
+            const nuevaAlerta = document.createElement('div');
+            
+            nuevaAlerta.classList.add('alerta-emergente');
+            if (tipo === 'exito') {
+                nuevaAlerta.classList.add('alerta-exito');
+            } else {
+                nuevaAlerta.classList.add('alerta-error');
+            }
+
+            nuevaAlerta.textContent = texto;
+            contenedorAlertas.appendChild(nuevaAlerta);
+
+            // BORRADO DINÁMICO SIN TIMEOUT:
+            // Escuchamos de forma nativa cuándo termina la animación de CSS
+            nuevaAlerta.addEventListener('animationend', () => {
+                nuevaAlerta.remove(); // Se destruye del DOM inmediatamente al terminar la animación
+            });
+        }
+
+        // --- Eventos de los botones ---
+        document.getElementById('btnExito').addEventListener('click', function(e) {
+            if(!formulario.checkValidity()) return;
+            e.preventDefault();
+            const titulo = document.getElementById('titulo').value;
+            
+            emitirAlerta('exito', `✔ ¡El artículo "${titulo}" ha sido creado con éxito!`);
+            formulario.reset();
+        });
+
+        document.getElementById('btnError').addEventListener('click', function(e) {
+            if(!formulario.checkValidity()) return;
+            e.preventDefault();
+            
+            emitirAlerta('error', '❌ Error: No se pudo conectar al servidor.');
+        });
+    </script>
+
+</body>
+</html>
